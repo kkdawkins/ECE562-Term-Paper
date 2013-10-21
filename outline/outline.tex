@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\setlength{\topmargin}{0.00in}
+\setlength{\textheight}{8.75in}
+\setlength{\textwidth}{6.625in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\Roman*.}
+\setenumerate[2]{label=\Alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+\begin{document}
+\begin{outline}[enumerate]
+   \1 Overview (and Intro) of current GPU technology
+   		\2 SIMD Model of computing
+   \1 Discrete GPU Architecture 
+   		\2 How does the GPU process data
+   \1 What makes a GPGPU different than a GPU
+   \1 Current GPGPU system architecture
+   \1 OpenCL Discussion
+   		\2 Why C wouldn't work well for mixed architectures  
+   \1 Mixed (Heterogeneous) GPGPU/CPU architecture
+		\2 Changes in design
+			\3 Timing
+			\3 ISA
+			\3 Cache design
+	\1 Looking into the future
+		\2 GPGPU with ARM support
+\end{outline}
+
+\end{document}

@@ -1,0 +1,25 @@
+\section*{What is a GPU?}
+\addcontentsline{toc}{section}{What is a GPU?}
+
+Graphics Processing Units (GPUs) gained popularity during the mid-1990s. As computers became more prevalent in consumers homes, multimedia functions (games, animations, GUIs) became more demanding on system resources. Looking for a solution, researchers noticed that the types of work being done to draw the screen was unique in that the data set could be broken up into smaller independent data sets. These smaller data sets then had the same operation applied on each one in parallel. The final result was the combination of each data set. 
+
+This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \textbf{M}ultiple \textbf{D}ata (SIMD). The key observation being that each individual operation could be one on each data set in parallel. However, the programability of these operations was limited, initially not extending past transformation and lighting (hardware T$\&L$). 
+
+The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. \ref{tab:gpuevolution}
+
+As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). 
+
+\begin{table}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{DirextX Level} & \textbf{Programmability} \\
+		\hline
+		$<$ 8.0 & Nothing beyond advanced texture blending \\
+		8.0 & Assembly language for vertex processing \\
+		9.0 & Data dependent branching and fragment program assembly\\
+		10.0 & Unified Vertex/Fragment shaders \\
+		\hline
+	\end{tabular}
+	\caption{Evolution of programmable GPUs}
+	\label{tab:gpuevolution}
+\end{table}

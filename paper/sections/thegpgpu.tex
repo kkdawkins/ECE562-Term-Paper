@@ -17,9 +17,32 @@ As shown in Table 1, the amount of control a programmer had over the GPU grew wi
 		$<$ 8.0 & Nothing beyond advanced texture blending \\
 		8.0 & Assembly language for vertex processing \\
 		9.0 & Data dependent branching and fragment program assembly\\
-		10.0 & Unified Vertex/Fragment shaders \\
+		10.0 & Unified Vertex/Fragment shaders, Memory Scatter \\
 		\hline
 	\end{tabular}
 	\caption{Evolution of programmable GPUs}
 	\label{tab:gpuevolution}
 \end{table}
+
+
+\section*{The birth of the GPGPU}
+\addcontentsline{toc}{section}{The birth of the GPGPU}
+
+Unified shaders can be attributed to the single most important moment in the creation of a General Purpose GPU. The unified shader means that the vertex and fragment shaders were combined into one unit. Each GPU would have multiple unified shader units. These units adapted to the needs of the current data set, they could be used as either vertex or fragment shaders varying dynamically during execution. 
+
+Another advantage that the GPU had was its massive number of cores and possible concurrent threads. For programs that could take advantage of the SIMD architecture, could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture, allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. 
+
+The unified shader represented a more general approach to the CPU freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
+
+
+
+
+
+
+
+
+
+
+
+
+

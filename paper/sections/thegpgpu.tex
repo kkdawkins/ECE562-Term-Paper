@@ -65,10 +65,14 @@ Memcachd is a distributed memory object cache system. It was designed during the
 The GPGPU version of memcached ported the \textit{GET} command (after an observation that most requests are \textit{GET} and the write commands may fair better on the CPU. Requests are batched then ran in parallel on the GPGPU running the hash computation and lookup in parallel. Their findings showed that the GPGPU outperformed the CPU by factors reaching 7X speedup. \cite{memcached}
 
 
-\subsection{A move into the future}
+\subsection*{A move into the future}
 \addcontentsline{roc}{subsection}{A move into the future}
 
+Combining the ability to perform general purpose computing utilizing common programming languages, and results showing the real world use of GPGPUs the stage has been set for a big revolution in computing. However, if GPGPUs are ever expected to breach into enterprise workloads an integration must take place. All the results showed that while GPGPUs are great for their tasks, they are even better when working closely with the CPU. 
 
+For this change to be meaningful, there must be an efficient line of communication for the CPU and the GPGPU to work together on tasks without a lot of overhead. The current generation of GPGPUs rely on an external bus to bridge the communication and data between the CPU and GPGPU (commonly the PCI-e bus). With data sets growing larger, this is becoming a huge bottleneck that can slow the rest of the system and causes one to constantly wait on the other.
+
+Enter the world of heterogenous computing. Combining a GPGPU directly into the cores of the CPU itself. This has the chance to dramatically increase performance allowing almost seamless transfer whenever appropriate. This does not come without its challenges, and the rest of the paper will explore these in detail, proposing solutions along the way. 
 
 
 

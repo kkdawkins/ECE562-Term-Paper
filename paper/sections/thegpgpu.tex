@@ -7,7 +7,7 @@ This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \
 
 The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. \ref{tab:gpuevolution}
 
-As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). 
+As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). \cite{emergingtech}
 
 \begin{table}
 	\begin{tabular}{|c|c|}
@@ -30,7 +30,7 @@ As shown in Table 1, the amount of control a programmer had over the GPU grew wi
 
 Unified shaders can be attributed to the single most important moment in the creation of a General Purpose GPU. The unified shader means that the vertex and fragment shaders were combined into one unit. Each GPU would have multiple unified shader units. These units adapted to the needs of the current data set, they could be used as either vertex or fragment shaders varying dynamically during execution. 
 
-Another advantage that the GPU had was its massive number of cores and possible concurrent threads. For programs that could take advantage of the SIMD architecture, could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture, allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. 
+Another advantage that the GPU had was its massive number of cores and possible concurrent threads. For programs that could take advantage of the SIMD architecture, could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture, allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. \cite{emergingtech}
 
 The unified shader represented a more general approach to the CPU freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
 
@@ -40,20 +40,42 @@ The ability to write programs in a C-like general language rather than a special
 \addcontentsline{toc}{section}{Unleashing the power of the GPGPU}
 
 
-Now that programmers had the tools and APIs they need, programs and experimentation was done to determine what worked well on the GPGPU. 
+Now that programmers had the tools and APIs they need, programs and experimentation was done to determine what worked well on the GPGPU. The following is a sample of real world applications ported to a GPGPU because of their access patterns and potential for performance gains. 
+
+They will be briefly presented here, but the details regarding their porting and lessons learned about GPGPU architecture will not be discussed in detail here. Later in the paper, these topics will be fully discussed and these projects will be referenced. 
 
 \subsection*{Linear Algebra}
 \addcontentsline{toc}{subsection}{Linear Algebra}
 
 Perhaps one of the most obvious general uses of a GPGPU lays in the realm of liner algebra. It seems fitting since the GPU was designed around matrix math (pixels on a screen). 
 
+A Cholesky factorization is a common linear algebra operation run on a matrix. By breaking the matrix down into smaller chunks and running the factorization on them, the authors were able to achieve a 3.8X speedup over the standard Intel CPU math library. \cite{linearalg}
 
 \subsection*{Big Data}
 \addcontentsline{toc}{subsection}{Big Data}
 
+** I would like to find one of these. But since the paper focuses on the arch, and I have the two others, I may not need it or it would be overkill. Both the memcached and linear papers focus on why the GPU arch is different. 
 
 \subsection*{memcached}
 \addcontentsline{toc}{subsection}{memcached}
+
+
+Memcachd is a distributed memory object cache system. It was designed during the rising popularity of dynamic content on the internet. Memcached stores recently used database information in memory. All of the stored information is combined into massive hash tables. These tables must be crawled efficiently and quickly in order for a performance gain to be attained. The potential problem is that incoming requests are largely dependent on changing data. 
+
+The GPGPU version of memcached ported the \textit{GET} command (after an observation that most requests are \textit{GET} and the write commands may fair better on the CPU. Requests are batched then ran in parallel on the GPGPU running the hash computation and lookup in parallel. Their findings showed that the GPGPU outperformed the CPU by factors reaching 7X speedup. \cite{memcached}
+
+
+\subsection{A move into the future}
+\addcontentsline{roc}{subsection}{A move into the future}
+
+
+
+
+
+
+
+
+
 
 
 

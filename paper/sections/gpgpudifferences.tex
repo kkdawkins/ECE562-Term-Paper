@@ -22,3 +22,25 @@ This does not cause the threads that made the jump to miss out on any execution.
 \subsection*{Memory Access}
 \addcontentsline{toc}{subsection}{Memory Access}
 
+Another major considerations for programs running on a GPGPU is memory access. A GPGPU an run thousands of threads simultaneously. If the currently executed instruction on the GPGPU is a memory access instruction (like a load or store), then each thread will generate a memory access request. If this memory request happens to be for a different address then the GPGPU will have to handle these requests individually. However, if the program was designed with the GPGPU in mind and high amounts of data locality amongst threads in the wavefront is achieved, then the GPGPU can optimize this request itself and consolidate the memory requests into a single request.
+
+This is not something normally thought about when writing general programs for a CPU. Since most consumer CPU's can run between 8 and 12 threads at once, if they generate memory requests the overall performance impact is not a big deal. However, the scale of the GPGPU can make this into a big problem. \cite{memcached}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

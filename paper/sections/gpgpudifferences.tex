@@ -8,7 +8,7 @@ Talking about the hardware. Stream processors VS general purpose CPU cores also 
 
 As discussed in the previous section, GPGPUs utilize the Single Instruction Multiple Data (SIMD) architecture. In this architecture, all executing threads must move through the computation in lock-step. Threads cannot deviate from the execution path. Ideally threads would execute without branches or control flow operations that would effect their route through the GPGPU. The efficiency of a GPGPU (SIMD efficiency) is defined as "the fraction of scalar threads that execute together in lockstep per cycle" \cite{memcached}
 
-GPGPU architecture varies from a general purpose CPU architecture in three main ways, Control Flow, Memory Access, and Data Transfer. These all end up as challenges when incorporating the GPGPU into the CPU to create the heterogeneous architecture. 
+GPGPU architecture varies from a general purpose CPU architecture in two main ways, Control Flow and Memory Access. These all end up as challenges when incorporating the GPGPU into the CPU to create the heterogeneous architecture. 
 
 \subsection*{Control Flow}
 \addcontentsline{toc}{subsection}{Control Flow}
@@ -28,8 +28,10 @@ This is not something normally thought about when writing general programs for a
 
 
 
+\subsection*{Making them work together}
+\addcontentsline{toc}{subsection}{Making them work together}
 
-
+It seems like combining a CPU and GPGPU is a large challenge because of the fundamental differences between the two pieces of hardware. However, because of the massive gains in performance that a GPGPU has over the equivalent CPU SIMD instruction set (Intel SEE, for example), there are huge gains to be had from successfully combining them. 
 
 
 

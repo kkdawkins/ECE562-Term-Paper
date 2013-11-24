@@ -1,9 +1,20 @@
 \subsection*{Architecture Differences}
 \addcontentsline{toc}{section}{Architecture Differences}
 
-Talking about the hardware. Stream processors VS general purpose CPU cores.
+Talking about the hardware. Stream processors VS general purpose CPU cores also talk about SIMD
 
 \subsection*{How does a GPGPU process data?}
 \addcontentsline{toc}{section}{How does a GPGPU process data?}
 
-Talking about lock step computation, waves, kernels, etc.
+As discussed in the previous section, GPGPUs utilize the Single Instruction Multiple Data (SIMD) architecture. In this architecture, all executing threads must move through the computation in lock-step. Threads cannot deviate from the execution path. Ideally threads would execute without branches or control flow operations that would effect their route through the GPGPU. The efficiency of a GPGPU (SIMD efficiency) is defined as "the fraction of scalar threads that execute together in lockstep per cycle" \cite{memcached}
+
+GPGPU architecture varies from a general purpose CPU architecture in three main ways, Control Flow, Memory Access, and Data Transfer. These all end up as challenges when incorporating the GPGPU into the CPU to create the heterogeneous architecture. 
+
+\subsection*{Control Flow}
+\addcontentsline{toc}{subsection}{Control Flow}
+
+Recall that in a SIMD (Single Instruction Multiple Data) architecture, all concurrently executing threads (also known as workgroups) must move through the GPPGU in lock-step. Therefore, the ideal situation for these wavefronts would be to move through the code with no conditional branches allowing unabated forward progress through the program and correctly executing instructions for each work item (data set) in parallel. 
+
+However, this is almost never the case. Modern mature programs almost always include control flow branches in the code. With that being said, it is entirely possible for threads in the wavefront to encounter data items that cause the code to make the jump, while the rest of the threads do not. Predictably, this causes problems when threads are expected to execute in lock step. This is known as "branch divergence" and is currently solved with the addition of a hardware component that monitors the running threads. This SIMT stack monitor watches threads executing and disables threads making an uncharacteristic jump. It tracks the current program counter and the RPC (re-convergance program counter), which is the closest point in the code at which the inactive and active threads will rejoin. 
+
+This does not cause the threads that made the jump to miss out on any execution. As soon as the active threads finish executing their code the converge and the inactive threads continue execution. The main difference here is that on a CPU, if threads on executing on different cores diverge, they can all continue execution on their own paths. Each core can be at a vastly different place in the program but still actively executing code. However, the GPGPU runs like a train, and must sequentially walk through the entire program, so divergent threads, rather than executing in different places, inactivate for the points in the code they do not execute. 

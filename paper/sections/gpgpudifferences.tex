@@ -3,7 +3,9 @@
 
 In order to understand the GPGPU hardware architecture differences, one must first understand the hardware and the reasoning behind it's design. The GPU, in particular, was designed around multimedia functions for a computer that operated on the timescale of a human eye, rather than the timescale of the CPU itself. The human eye works in terms of hundredths of a second, rather than pico- or nano- seconds. Also, the GPU works with huge amounts of data at any given time. Each pixel on the screen has several different attributes, for example, the RGBa common layout describes each pixel position in the vector in terms of Red, Green, Blue, and Alpha channel attributes. When applied to modern 1080p screens, it is not hard to comprehend how much data the GPU must process. \cite{gpucomputing}
 
-Luckily, as stated above, it must work in slower time-slices than the CPU. This allows for a much deeper (in the hundreds to thousands deep) pipeline. The latency of each individual instruction does not mater as much as the throughput to the screen. Therefore, to understand the design choices around the GPGPU's architecture, one must understand it was designed around the theory that "throughput is more important than latency" \cite{gpucomputing}
+Luckily, as stated above, it must work in slower time-slices than the CPU. This allows for a much deeper (in the hundreds to thousands deep) pipeline. The latency of each individual instruction does not mater as much as the throughput to the screen. Therefore, to understand the design choices around the GPGPU's architecture, one must understand it was designed around the theory that "throughput is more important than latency." \cite{gpucomputing}
+
+
 
 \subsection*{How does a GPGPU process data?}
 \addcontentsline{toc}{section}{How does a GPGPU process data?}

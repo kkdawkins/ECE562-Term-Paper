@@ -5,7 +5,7 @@ In order to understand the GPGPU hardware architecture differences, one must fir
 
 Luckily, as stated above, it must work in slower time-slices than the CPU. This allows for a much deeper (in the hundreds to thousands deep) pipeline. The latency of each individual instruction does not mater as much as the throughput to the screen. Therefore, to understand the design choices around the GPGPU's architecture, one must understand it was designed around the theory that "throughput is more important than latency." \cite{gpucomputing}
 
-
+Where as the typical CPU pipeline works by breaking up each task into steps then feeding the output of each step into the input of the next step, the GPU works differently. Instead of dividing the processor an the work in terms of \textit{time}, the GPU divides the work in terms of \textit{space}. Each stage in the GPU pipeline represents a different space of the GPU. This works extremely well because the GPU can exploit the data parallelism from within each \textit{space}. \cite{gpucomputing} Exploiting that level of parallelism allows the GPU to compute multiple data elements at the same time (SIMD). 
 
 \subsection*{How does a GPGPU process data?}
 \addcontentsline{toc}{section}{How does a GPGPU process data?}

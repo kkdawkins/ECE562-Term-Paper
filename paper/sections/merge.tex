@@ -3,4 +3,4 @@
 
 Work has already been done in the space. Intel's Sandy Bridge architecture moved the GPGPU form the north-bridge onto the CPU chip itself. This may have been for either cost saving reasons or for performance, but this represented a step in the march towards a heterogeneous architecture. Their fusion placed the GPGPU onto the die sharing a L3 cache and main memory. It however, is not, integrated into the CPU itself (as a heterogeneous architecture would be). 
 
-Even still, some of the architecture choices 
+Even still, this move is interesting because it pronounces some of the architecture questions around the integration between the CPU and the GPGPU. For one, how is the instruction set going to change? Will the CPU act as a leader dispatching instructions or will the compiler need to generate code specifically for the GPGPU core?  

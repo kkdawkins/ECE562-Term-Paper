@@ -7,7 +7,7 @@ This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \
 
 The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. \ref{tab:gpuevolution}
 
-As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). \cite{emergingtech}
+As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. A great example of this feature begin picked up is the work done at PhysX. While initially an additional expansion card for computing physics, PhysX integrated with GPGPUs capable of DirectX 10. They improved the realism of games by providing a realtime physics environment. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). \cite{emergingtech}
 
 \begin{table}
 	\begin{tabular}{|c|c|}
@@ -32,17 +32,17 @@ Unified shaders can be attributed to the single most important moment in the cre
 
 Unified shaders also provided one more important attribute to the birth of the GPGPU, a single language to control everything programmable on the GPU. Prior to this, programmers had to know about both the vertex shader language, and the fragment shader language. This was a huge burden to programmers not writing multimedia applications. Unifying the programming language also allowed people to start working on higher level languages for the GPGPU. \cite{gpucomputing}
 
-Another advantage that the GPU had was its massive number of cores and possible concurrent threads. For programs that could take advantage of the SIMD architecture, could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture, allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. \cite{emergingtech}
+Another advantage that the GPU had was its massive number of cores and possible concurrent threads.  Programs that could take advantage of the SIMD architecture could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. \cite{emergingtech}
 
 The unified shader represented a more general approach to the CPU freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
 
-The ability to write programs in a C-like general language rather than a specialized shader language (that required the programmer to write everything in terms of graphics nomenclature, combined with the increasingly general aspects of the GPU meant that the industry could start porting applications and attempting to figure out what works well on a GPGPU. 
+The ability to write programs in a C-like general language rather than a specialized shader language (that required the programmer to write everything in terms of graphics nomenclature), combined with the increasingly general aspects of the GPU meant that the industry could start porting applications and attempting to figure out what works well on a GPGPU. 
 
 \section*{Unleashing the power of the GPGPU}
 \addcontentsline{toc}{section}{Unleashing the power of the GPGPU}
 
 
-Now that programmers had the tools and APIs they need, programs and experimentation was done to determine what worked well on the GPGPU. The following is a sample of real world applications ported to a GPGPU because of their access patterns and potential for performance gains. 
+Now that programmers have the tools and APIs they need, programs and experimentation can be done to determine what worked well on the GPGPU. The following is a sample of real world applications ported to a GPGPU because of their access patterns and potential for performance gains. 
 
 They will be briefly presented here, but the details regarding their porting and lessons learned about GPGPU architecture will not be discussed in detail here. Later in the paper, these topics will be fully discussed and these projects will be referenced. 
 
@@ -70,9 +70,9 @@ The GPGPU version of memcached ported the \textit{GET} command (after an observa
 \subsection*{A move into the future}
 \addcontentsline{roc}{subsection}{A move into the future}
 
-Combining the ability to perform general purpose computing utilizing common programming languages, and results showing the real world use of GPGPUs the stage has been set for a big revolution in computing. However, if GPGPUs are ever expected to breach into enterprise workloads an integration must take place. All the results showed that while GPGPUs are great for their tasks, they are even better when working closely with the CPU. 
+Combining the ability to perform general purpose computing utilizing common programming languages, and results showing the real world use of GPGPUs, it has become evident that the stage has been set for a big revolution in computing. However, if GPGPUs are ever expected to breach into enterprise workloads an integration must take place. All the results showed that while GPGPUs are great for their tasks, they are even better when working closely with the CPU. 
 
-For this change to be meaningful, there must be an efficient line of communication for the CPU and the GPGPU to work together on tasks without a lot of overhead. The current generation of GPGPUs rely on an external bus to bridge the communication and data between the CPU and GPGPU (commonly the PCI-e bus). With data sets growing larger, this is becoming a huge bottleneck that can slow the rest of the system and causes one to constantly wait on the other.
+For this change to be meaningful, there must be an efficient line of communication for the CPU and the GPGPU to work together on tasks without a lot of overhead. The current generation of GPGPUs rely on an external bus to bridge the communication and data between the CPU and GPGPU (commonly the PCI-e bus). With data sets growing larger, this is becoming a huge bottleneck that can slow the rest of the system and causes one to constantly wait on the other. This also contributes to the large bottleneck on the CPU. Memory controllers are already pushed to the limit to feed multiple cores, in addition to handling the massive amount of data that the GPGPU will need.
 
 Enter the world of heterogenous computing. Combining a GPGPU directly into the cores of the CPU itself. This has the chance to dramatically increase performance allowing almost seamless transfer whenever appropriate. This does not come without its challenges, and the rest of the paper will explore these in detail, proposing solutions along the way. 
 

@@ -36,11 +36,19 @@ This does not cause the threads that made the jump to miss out on any execution.
 \subsection*{Memory Access}
 \addcontentsline{toc}{subsection}{Memory Access}
 
+The differences in memory access can be divided into two sections: main memory access, and cache management. 
+
+\subsubsection*{Main Memory Management}
+\addcontentsline{toc}{subsubsection}{Main Memory Management}
+
 Another major considerations for programs running on a GPGPU is memory access. A GPGPU can run thousands of threads simultaneously. If the currently executed instruction on the GPGPU is a memory access instruction (like a load or store), then each thread will generate a memory access request. If this memory request happens to be for a different address then the GPGPU will have to handle these requests individually. However, if the program was designed with the GPGPU in mind and high amounts of data locality amongst threads in the wavefront is achieved, then the GPGPU can optimize this request itself and consolidate the memory requests into a single request.
 
 This is not something normally thought about when writing general programs for a CPU. Since most consumer CPU's can run between 8 and 12 threads at once, if they generate memory requests the overall performance impact is not a big deal. However, the scale of the GPGPU can make this into a big problem. \cite{memcached}
 
+\subsubsection*{Cache Management}
+\addcontentsline{toc}{subsubsection}{Cache Management}
 
+Another point to mention regarding memory access is the cache management. While both the GPGPU and the CPU can maintain their own caches, they access data in the cache in very different ways. This makes combining them very difficult. GPGPUs hide memory access latency by utilizing a massive number of threads. This requires a huge cache to manage the constant context switching on the GPGPU. This causes the GPGPU to hit the cache much more frequently than the CPU will. Assuming a general LRU replacement policy, the cache will clearly favor the GPGPU. \cite{tlpcache}
 
 \subsection*{Making them work together}
 \addcontentsline{toc}{subsection}{Making them work together}

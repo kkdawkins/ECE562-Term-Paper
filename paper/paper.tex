@@ -19,6 +19,8 @@
 
 \begin{document}
 
+\setcounter{tocdepth}{4}
+
 \title{An Investigation into Heterogeneous CPU/GPGPU Computing}
 \author{Kevin Dawkins\\
   Department of Computer Science,\\
@@ -44,7 +46,11 @@
 \addcontentsline{toc}{chapter}{How is the GPGPU different?}
 \input{sections/gpgpudifferences}
 
-\nocite{nvidia, mapreduce, tlpcache, cpuassist}
+\chapter*{Merging the CPU with a GPGPU}
+\addcontentsline{toc}{chapter}{Merging the CPU with a GPGPU}
+\input{sections/merge}
+
+\nocite{nvidia, mapreduce, cpuassist}
 
 \bibliography{paper}
 \bibliographystyle{IEEEtran}

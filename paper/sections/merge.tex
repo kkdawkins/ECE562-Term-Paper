@@ -17,3 +17,25 @@ Work has already begun in the space. Intel's Sandy Bridge architecture moved the
 Even still, this move is interesting because it pronounces some of the architecture questions around the integration between the CPU and the GPGPU. For one, how is the instruction set going to change? Will the CPU act as a leader dispatching instructions or will the compiler need to generate code specifically for the GPGPU core? For a completely efficient and effective heterogeneous architecture, the CPU cannot be expected to constantly lead the GPGPUs operations. That would force a bottleneck onto the CPU and require additional work on the CPU to determine what to send to the GPGPU. 
 
 
+\section*{Designing a \textit{Heterogenous} Instruction Set}
+\addcontentsline{toc}{section}{Designing a \textit{Heterogenous} Instruction Set}
+
+In order for efficient operation on par with a CPU, the GPGPU will need to be able to accept instructions during execution outside of the control of the CPU. To accomplish this without increasing the complexity and logic behind the CPU's pipeline too much, the VLIW instruction style provides an interesting solution. 
+
+VLIW tried to take advantage of instruction level parallelism (ILP) by combining several instructions into one super instruction. The VLIW instruction would then be broken apart in the pipeline and each individual instruction executed in parallel. 
+
+In the spirit of VLIW, the heterogenous instruction set would consist of one CPU instruction paired with one GPGPU instruction. This instruction would be processed by the CPU in its initial instruction decode stage, then passed onto the GPGPU through a bus. Much like the VLIW instructions, the heterogenous instructions could be passed without either he CPU or GPGPU instruction if there were none at that cycle. 
+
+However, obvious problems in efficiency stem from each GPGPU instruction being forced to pass through the CPU. 
+
+
+
+
+
+
+
+
+
+
+
+

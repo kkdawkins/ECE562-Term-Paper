@@ -1,6 +1,19 @@
-\subsection*{The Status Quo}
+\section*{The Motivation Behind the Merge}
+\addcontentsline{toc}{section}{The Motivation Behind the Merge}
+
+This massively complex initiative to move the GPGPU onto the CPUs cores will provide huge advantages to programmers and computer designers in the future. These advantages in design and implementation result in more efficient programs, and an attempt at helping with the power wall. Briefly, the power wall is a result of performance scaling faster than power dissipation has. Simply put, faster computers are more difficult to keep cool.  
+
+One of the big draws in the system is the GPGPU sitting on the PCI-e bus. These huge cards draw a lot of power, and create a lot of heat. Besides powering (and cooling) the GPGPU core itself, the cards must cool the supplementary memory that the cards contain. Most of this energy spent on cooling the GPGPU will be alleviated by merging it onto the CPU. It can share the DRAM and cache with the CPU taking its own hot memory out of the equation. 
+
+In addition to cooling the cards, the processor spends a lot of energy and time transporting all of the data the cards need. This can cause huge delays on the pipeline and tie up crucial buses. Moving the GPGPU onto the CPU can eliminate the time spent moving this data around. As mentioned previously, the GPGPU would share the memory infrastructure with the CPU allowing it easy access to any data it needs. 
+
+Finally, the merge could bring great benefits to the programmer. Currently, while writing a program using CUDA or Open CL, the programmer must navigate an awkward interface to determine which parts of the program must be run on the GPGPU and reference the device (and track the reference) throughout the code. Hopefully, in a heterogeneous environment, the programmer could utilize a GPGPU with little or no effort. This could either be accomplished by the compiler, or through a process as painless as standard C pthreads. 
+
+\section*{The Status Quo}
 \addcontentsline{toc}{section}{The Status Quo}
 
-Work has already been done in the space. Intel's Sandy Bridge architecture moved the GPGPU form the north-bridge onto the CPU chip itself. This may have been for either cost saving reasons or for performance, but this represented a step in the march towards a heterogeneous architecture. Their fusion placed the GPGPU onto the die sharing a L3 cache and main memory. It however, is not, integrated into the CPU itself (as a heterogeneous architecture would be). 
+Work has already begun in the space. Intel's Sandy Bridge architecture moved the GPGPU form the north-bridge onto the CPU chip itself. This may have been for either cost saving reasons or for performance, but this represented a step in the march towards a heterogeneous architecture. Their fusion placed the GPGPU onto the die sharing a L3 cache and main memory. It however, is not, integrated into the CPU itself (as a heterogeneous architecture would be). Therefore, while the GPGPU and CPU have been integrated into the same chip, the programmer still writes code in the same way as before. In this model, the CPU will act as leader sending instructions, data, and code down to the GPGPU. 
 
-Even still, this move is interesting because it pronounces some of the architecture questions around the integration between the CPU and the GPGPU. For one, how is the instruction set going to change? Will the CPU act as a leader dispatching instructions or will the compiler need to generate code specifically for the GPGPU core?  
+Even still, this move is interesting because it pronounces some of the architecture questions around the integration between the CPU and the GPGPU. For one, how is the instruction set going to change? Will the CPU act as a leader dispatching instructions or will the compiler need to generate code specifically for the GPGPU core? For a completely efficient and effective heterogeneous architecture, the CPU cannot be expected to constantly lead the GPGPUs operations. That would force a bottleneck onto the CPU and require additional work on the CPU to determine what to send to the GPGPU. 
+
+

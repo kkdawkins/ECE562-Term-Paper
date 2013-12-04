@@ -17,6 +17,16 @@ Work has already begun in the space. Intel's Sandy Bridge architecture moved the
 Even still, this move is interesting because it pronounces some of the architecture questions around the integration between the CPU and the GPGPU. For one, how is the instruction set going to change? Will the CPU act as a leader dispatching instructions or will the compiler need to generate code specifically for the GPGPU core? For a completely efficient and effective heterogeneous architecture, the CPU cannot be expected to constantly lead the GPGPUs operations. That would force a bottleneck onto the CPU and require additional work on the CPU to determine what to send to the GPGPU. 
 
 
+\section*{Writing Programs for a Heterogenous Enviornment}
+\addcontentsline{toc}{section}{Writing Programs for a Heterogenous Enviornment}
+
+When the GPGPU merges with the CPU, two distinct classes of programs will be written to take advantage of this new hardware both requiring different resources and interaction from the system. The first classification of program will utilize only the GPGPU without any need for the CPU. The other classification encompasses more complicated programs that utilize both the CPU and the GPGPU interchangeably throughout the programs execution. 
+
+The first class of programs will require only cooperation from the operating system scheduler and the compiler. When this program type is built, the compiler will generate machine code only for the specific GPGPU target, without including any code for the CPU. This program will then be scheduled by the operating system to run on the GPGPU itself. 
+
+The second class of program is more complicated. This will require a lightweight solution allowing the CPU to understand when instructions are meant for the GPGPU. The compiler will also have a roll to play as it will need to target two different architectures at once! It will need to be able to generate machine code for both the CPU and the GPGPU and know when in the program the code need to be generated. While this compiler problem can be solved with flags, it is not in the scope of this paper. However, the instruction set for the CPU will need to be designed around the flexibility of accommodating both types of machine code interchangeably. 
+
+
 \section*{Designing a \textit{Heterogenous} Instruction Set}
 \addcontentsline{toc}{section}{Designing a \textit{Heterogenous} Instruction Set}
 
@@ -24,12 +34,17 @@ In order for efficient operation on par with a CPU, the GPGPU will need to be ab
 
 VLIW tried to take advantage of instruction level parallelism (ILP) by combining several instructions into one super instruction. The VLIW instruction would then be broken apart in the pipeline and each individual instruction executed in parallel. 
 
-In the spirit of VLIW, the heterogenous instruction set would consist of one CPU instruction paired with one GPGPU instruction. This instruction would be processed by the CPU in its initial instruction decode stage, then passed onto the GPGPU through a bus. Much like the VLIW instructions, the heterogenous instructions could be passed without either he CPU or GPGPU instruction if there were none at that cycle. 
+In the spirit of VLIW, the heterogenous instruction set would consist of one CPU instruction paired with one GPGPU instruction. This instruction would be processed by the CPU in its initial instruction decode stage, then passed onto the GPGPU through a bus. Much like the VLIW instructions, the heterogenous instructions could be passed without either the CPU or GPGPU instruction if there were none at that cycle. Since the GPGPU can take one instruction and pass it to all of its threads, it is not necessary to try to overload the long word instruction with multiple GPGPU entries.
+
+However, in many cases the instructions may not sync up. The GPGPU pipeline is much deeper and not designed around the fast clock of the CPU. This situation would also be fine because the GPGPU can continue to accept instructions in the current wavefront, and the CPU can continue to run. The CPU would only stall if it needed the result of a GPGPU operation, as this is also the case in current configurations, it would not impact the program any more negatively than it presently does. This also follows the spirit of a heterogenous architecture treating the GPGPU like another one of the CPU's independent cores. 
 
 However, obvious problems in efficiency stem from each GPGPU instruction being forced to pass through the CPU. 
 
 
+\section*{Arbitration with the GPGPU}
+\addcontentsline{toc}{section}{Arbitration with the GPGPU}
 
+At first glance, it seems that the GPGPU should be treated like a peripheral component that can be locked down by running threads. However, that is not truly designing a heterogenous architecture. The best way to manage this different component would be to think of it as an additional CPU and give that problem to the operating system. As the different classes of programs were outlined previously, giving the operating system arbitration control over the GPGPU does not seem that challenging. The operating system would need to know when processes require the CPU vs. the GPGPU. 
 
 
 

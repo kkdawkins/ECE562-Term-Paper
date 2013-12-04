@@ -44,7 +44,7 @@ The ability to write programs in a C-like general language rather than a special
 
 Now that programmers have the tools and APIs they need, programs and experimentation can be done to determine what worked well on the GPGPU. The following is a sample of real world applications ported to a GPGPU because of their access patterns and potential for performance gains. 
 
-They will be briefly presented here, but the details regarding their porting and lessons learned about GPGPU architecture will not be discussed in detail here. Later in the paper, these topics will be fully discussed and these projects will be referenced. 
+They will be briefly presented here, but the details regarding their porting and lessons learned about GPGPU architecture will not be discussed in detail here. Later in the paper, these topics will be discussed and these projects will be referenced. 
 
 \subsection*{Linear Algebra}
 \addcontentsline{toc}{subsection}{Linear Algebra}
@@ -53,10 +53,12 @@ Perhaps one of the most obvious general uses of a GPGPU lays in the realm of lin
 
 A Cholesky factorization is a common linear algebra operation run on a matrix. By breaking the matrix down into smaller chunks and running the factorization on them, the authors were able to achieve a 3.8X speedup over the standard Intel CPU math library. \cite{linearalg}
 
-\subsection*{Big Data}
-\addcontentsline{toc}{subsection}{Big Data}
+\subsection*{Finance}
+\addcontentsline{toc}{subsection}{Finance}
 
-** I would like to find one of these. But since the paper focuses on the arch, and I have the two others, I may not need it or it would be overkill. Both the memcached and linear papers focus on why the GPU arch is different. 
+Modeling financial options accurately is one of the biggest challenges on the financial market. If the simulation is not done correctly, then the owner of an asset could sell incorrectly or miss out on another opportunity. This problem is that most of the financial simulations rely on complex data from other simulations. Also, a lot of the computation is done in a form that is known as "path dependent" which means that the solution relies on the path of a price during a specified time period. With the current high performance systems the financial market is limited on the number of time steps that they can use before the simulation runs too slow. There are huge opportunities for parallelism in the data making this a great case for a GPGPU. 
+
+This shows that the GPGPU is making its way into even the business market. The efficient calculation of the financial simulations can provide a great service to this market. \cite{finance}
 
 \subsection*{memcached}
 \addcontentsline{toc}{subsection}{memcached}

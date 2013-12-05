@@ -3,7 +3,7 @@
 
 This massively complex initiative to move the GPGPU onto the CPUs cores will provide huge advantages to programmers and computer designers in the future. These advantages in design and implementation result in more efficient programs, and an attempt at helping with the power wall. Briefly, the power wall is a result of performance scaling faster than power dissipation has. Simply put, faster computers are more difficult to keep cool.  
 
-One of the big draws in the system is the GPGPU sitting on the PCI-e bus. These huge cards draw a lot of power, and create a lot of heat. Besides powering (and cooling) the GPGPU core itself, the cards must cool the supplementary memory that the cards contain. Most of this energy spent on cooling the GPGPU will be alleviated by merging it onto the CPU. It can share the DRAM and cache with the CPU taking its own hot memory out of the equation. 
+One of the big power draws in the system is the GPGPU sitting on the PCI-e bus. These huge cards draw a lot of power, and create a lot of heat. Besides powering (and cooling) the GPGPU core itself, the cards must cool the supplementary memory that the cards contain. Most of this energy spent on cooling the GPGPU will be alleviated by merging it onto the CPU. It can share the DRAM and cache with the CPU taking its own hot memory out of the equation. 
 
 In addition to cooling the cards, the processor spends a lot of energy and time transporting all of the data the cards need. This can cause huge delays on the pipeline and tie up crucial buses. Moving the GPGPU onto the CPU can eliminate the time spent moving this data around. As mentioned previously, the GPGPU would share the memory infrastructure with the CPU allowing it easy access to any data it needs. 
 
@@ -24,13 +24,13 @@ When the GPGPU merges with the CPU, two distinct classes of programs will be wri
 
 The first class of programs will require only cooperation from the operating system scheduler and the compiler. When this program type is built, the compiler will generate machine code only for the specific GPGPU target, without including any code for the CPU. This program will then be scheduled by the operating system to run on the GPGPU itself. 
 
-The second class of program is more complicated. This will require a lightweight solution allowing the CPU to understand when instructions are meant for the GPGPU. The compiler will also have a roll to play as it will need to target two different architectures at once! It will need to be able to generate machine code for both the CPU and the GPGPU and know when in the program the code need to be generated. While this compiler problem can be solved with flags, it is not in the scope of this paper. However, the instruction set for the CPU will need to be designed around the flexibility of accommodating both types of machine code interchangeably. 
+The second class of program is more complicated. This will require a lightweight solution allowing the CPU to understand when instructions are meant for the GPGPU. The compiler will also have a role to play as it will need to target two different architectures at once! It will need to be able to generate machine code for both the CPU and the GPGPU and know when in the program the code need to be generated. While this compiler problem can be solved with flags, it is not in the scope of this paper. However, the instruction set for the CPU will need to be designed around the flexibility of accommodating both types of machine code interchangeably. 
 
 
 \section*{Designing a \textit{Heterogenous} Instruction Set}
 \addcontentsline{toc}{section}{Designing a \textit{Heterogenous} Instruction Set}
 
-In order for efficient operation on par with a CPU, the GPGPU will need to be able to accept instructions during execution outside of the control of the CPU. To accomplish this without increasing the complexity and logic behind the CPU's pipeline too much, the VLIW instruction style provides an interesting solution. 
+In order for efficient operation on par with a CPU, the GPGPU will need to be able to accept instructions during execution outside of the control of the CPU. To accomplish this without increasing the complexity and logic behind the CPU's pipeline too much, the VLIW instruction style provides an interesting comparison to draw inspiration from. 
 
 VLIW tried to take advantage of instruction level parallelism (ILP) by combining several instructions into one super instruction. The VLIW instruction would then be broken apart in the pipeline and each individual instruction executed in parallel. 
 

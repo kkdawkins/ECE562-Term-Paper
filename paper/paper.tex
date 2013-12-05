@@ -4,7 +4,16 @@
 \usepackage{amsmath}
 \usepackage{fullpage}
 \usepackage[nottoc]{tocbibind}
+%\usepackage{etoolbox}
+
+% One good way of doing it
 \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@makechapterhead}{50\p@}{0pt}{}{}
+\patchcmd{\@makeschapterhead}{50\p@}{0pt}{}{}
+\makeatother
+
+
 
 %\usepackage{etoolbox}
 %\makeatletter
@@ -32,7 +41,11 @@
 
 \input{sections/abstract}
 
+%\newpage
+
 \tableofcontents
+
+%\newpage
 
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
@@ -59,6 +72,8 @@
 \input{sections/conclusion}
 
 \nocite{nvidia, mapreduce, cpuassist}
+
+%\newpage
 
 \bibliography{paper}
 \bibliographystyle{IEEEtran}

@@ -1,9 +1,9 @@
 \section*{What is a GPU?}
 \addcontentsline{toc}{section}{What is a GPU?}
 
-Graphics Processing Units (GPUs) gained popularity during the mid-1990s. As computers became more prevalent in consumers homes, multimedia functions (games, animations, GUIs) became more demanding on system resources. Looking for a solution, researchers noticed that the types of work being done to draw the screen was unique in that the data set could be broken up into smaller independent data sets. These smaller data sets then had the same operation applied on each one in parallel. The final result was the combination of each data set. 
+Graphics Processing Units (GPUs) gained popularity during the mid-1990s. As computers became more prevalent in consumer's homes, multimedia functions (games, animations, GUIs) became more demanding on system resources. Looking for a solution, researchers noticed that the types of work being done to draw the screen was unique in that the data set could be broken up into smaller independent data sets. These smaller data sets then had the same operation applied on each one in parallel. The final result was the combination of each data set. 
 
-This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \textbf{M}ultiple \textbf{D}ata (SIMD). The key observation being that each individual operation could be one on each data set in parallel. However, the programability of these operations was limited, initially not extending past transformation and lighting (hardware T$\&L$). 
+This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \textbf{M}ultiple \textbf{D}ata (SIMD). The key observation being that each individual operation could be done on each data set in parallel. However, the programability of these operations was limited, initially not extending past transformation and lighting (hardware T$\&L$). 
 
 The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. \ref{tab:gpuevolution}
 
@@ -34,7 +34,7 @@ Unified shaders also provided one more important attribute to the birth of the G
 
 Another advantage that the GPU had was its massive number of cores and possible concurrent threads.  Programs that could take advantage of the SIMD architecture could expect to run on a massive amount of hardware. For example, the NVIDIA Geforce 8 architecture allowed programs to run on 128 processor cores and execute a dizzying 12,228 concurrent threads! GPUs could eclipse the CPU when comparing floating point operations by a huge scale. \cite{emergingtech}
 
-The unified shader represented a more general approach to the CPU freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
+The unified shader represented a more general approach to the CPU, freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
 
 The ability to write programs in a C-like general language rather than a specialized shader language (that required the programmer to write everything in terms of graphics nomenclature), combined with the increasingly general aspects of the GPU meant that the industry could start porting applications and attempting to figure out what works well on a GPGPU. 
 
@@ -56,7 +56,7 @@ A Cholesky factorization is a common linear algebra operation run on a matrix. B
 \subsection*{Finance}
 \addcontentsline{toc}{subsection}{Finance}
 
-Modeling financial options accurately is one of the biggest challenges on the financial market. If the simulation is not done correctly, then the owner of an asset could sell incorrectly or miss out on another opportunity. This problem is that most of the financial simulations rely on complex data from other simulations. Also, a lot of the computation is done in a form that is known as "path dependent" which means that the solution relies on the path of a price during a specified time period. With the current high performance systems the financial market is limited on the number of time steps that they can use before the simulation runs too slow. There are huge opportunities for parallelism in the data making this a great case for a GPGPU. 
+Modeling financial options accurately is one of the biggest challenges on the financial market. If the simulation is not done correctly, then the owner of an asset could sell incorrectly or miss out on another opportunity. The problem is that most of the financial simulations rely on complex data from other simulations. Also, a lot of the computation is done in a form that is known as "path dependent" which means that the solution relies on the path of a price during a specified time period. With the currently available high performance systems the financial market is limited on the number of time steps that they can use before the simulation runs too slow. There are huge opportunities for parallelism in the data making this a great case for a GPGPU. 
 
 This shows that the GPGPU is making its way into even the business market. The efficient calculation of the financial simulations can provide a great service to this market. \cite{finance}
 
@@ -66,7 +66,7 @@ This shows that the GPGPU is making its way into even the business market. The e
 
 Memcachd is a distributed memory object cache system. It was designed during the rising popularity of dynamic content on the internet. Memcached stores recently used database information in memory. All of the stored information is combined into massive hash tables. These tables must be crawled efficiently and quickly in order for a performance gain to be attained. The potential problem is that incoming requests are largely dependent on changing data. 
 
-The GPGPU version of memcached ported the \textit{GET} command (after an observation that most requests are \textit{GET} and the write commands may fair better on the CPU. Requests are batched then ran in parallel on the GPGPU running the hash computation and lookup in parallel. Their findings showed that the GPGPU outperformed the CPU by factors reaching 7X speedup. \cite{memcached}
+The GPGPU version of memcached ported the \textit{GET} command after an observation that most requests are \textit{GET} and the write commands may fair better on the CPU. Requests are batched then ran in parallel on the GPGPU running the hash computation and lookup in parallel. Their findings showed that the GPGPU outperformed the CPU by factors reaching 7X speedup. \cite{memcached}
 
 
 \subsection*{A move into the future}
@@ -76,7 +76,7 @@ Combining the ability to perform general purpose computing utilizing common prog
 
 For this change to be meaningful, there must be an efficient line of communication for the CPU and the GPGPU to work together on tasks without a lot of overhead. The current generation of GPGPUs rely on an external bus to bridge the communication and data between the CPU and GPGPU (commonly the PCI-e bus). With data sets growing larger, this is becoming a huge bottleneck that can slow the rest of the system and causes one to constantly wait on the other. This also contributes to the large bottleneck on the CPU. Memory controllers are already pushed to the limit to feed multiple cores, in addition to handling the massive amount of data that the GPGPU will need.
 
-Enter the world of heterogenous computing. Combining a GPGPU directly into the cores of the CPU itself. This has the chance to dramatically increase performance allowing almost seamless transfer whenever appropriate. This does not come without its challenges, and the rest of the paper will explore these in detail, proposing solutions along the way. 
+Enter the world of heterogenous computing; combining a GPGPU directly into the cores of the CPU itself. This has the chance to dramatically increase performance allowing almost seamless transfer whenever appropriate. This does not come without its challenges, and the rest of the paper will explore these in detail, proposing solutions along the way. 
 
 
 

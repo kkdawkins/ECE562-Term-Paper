@@ -28,7 +28,7 @@ As shown in Table \ref{tab:gpuevolution}, the amount of control a programmer had
 \section*{The birth of the GPGPU}
 \addcontentsline{toc}{section}{The birth of the GPGPU}
 
-Unified shaders can be attributed to the single most important moment in the creation of a General Purpose GPU. The unified shader means that the vertex and fragment shaders were combined into one unit. Each GPU would have multiple unified shader units. These units adapted to the needs of the current data set, they could be used as either vertex or fragment shaders varying dynamically during execution. 
+Unified shaders can be attributed to the single most important moment in the creation of a General Purpose GPU. The unified shader means that the vertex and fragment shaders were combined into one unit. Each GPU would have multiple unified shader units. These units adapted to the needs of the current data set, they could be used as either vertex or fragment shaders varying dynamically during execution. \cite{emergingtech}
 
 Unified shaders also provided one more important attribute to the birth of the GPGPU, a single language to control everything programmable on the GPU. Prior to this, programmers had to know about both the vertex shader language, and the fragment shader language. This was a huge burden to programmers not writing multimedia applications. Unifying the programming language also allowed people to start working on higher level languages for the GPGPU. \cite{gpucomputing}
 
@@ -45,7 +45,7 @@ From the top, the GPGPU is made up of several graphics processor clusters (the n
 
 The GPGPU's cache hierarchy contains a level 1 cache per core with a large level 2 cache shared amongst the graphics processing clusters. The level 1 cache is "used for register spilling, for stack operations, or to improve efficiency of global load and store operations." \cite{gpuarch} The interesting point about the level 2 cache is that in the case of the Nvidia Fermi (GF100) architecture, it contains 2 separate level 2 caches. The first is the standard read/write cache with a write-back replacement policy. The second is a read only for storing texture information for the graphics processor. \cite{gpuarch} 
 
-Typically the GPGPU will contain several memory controllers. In the case of the GF100, it contains six. These are used to support the massive amount of threads and different hardware engines the GPGPU supports. These engines are specialized hardware to support complicated operations (PolyMorph and tessellation, for example). 
+Typically the GPGPU will contain several memory controllers. In the case of the GF100, it contains six. These are used to support the massive amount of threads and different hardware engines the GPGPU supports. These engines are specialized hardware to support complicated operations (PolyMorph and tessellation, for example). \cite{gpuarch} 
 
 The entire anatomy of the GPGPU is built around supporting the massive amount of parallelism that it supplies to the computing system
 
@@ -67,7 +67,7 @@ A Cholesky factorization is a common linear algebra operation run on a matrix. B
 \subsection*{Finance}
 \addcontentsline{toc}{subsection}{Finance}
 
-Modeling financial options accurately is one of the biggest challenges on the financial market. If the simulation is not done correctly, then the owner of an asset could sell incorrectly or miss out on another opportunity. The problem is that most of the financial simulations rely on complex data from other simulations. Also, a lot of the computation is done in a form that is known as "path dependent" which means that the solution relies on the path of a price during a specified time period. With the currently available high performance systems the financial market is limited on the number of time steps that they can use before the simulation runs too slow. There are huge opportunities for parallelism in the data making this a great case for a GPGPU. 
+Modeling financial options accurately is one of the biggest challenges on the financial market. If the simulation is not done correctly, then the owner of an asset could sell incorrectly or miss out on another opportunity. The problem is that most of the financial simulations rely on complex data from other simulations. Also, a lot of the computation is done in a form that is known as "path dependent" which means that the solution relies on the path of a price during a specified time period. \cite{finance} With the currently available high performance systems the financial market is limited on the number of time steps that they can use before the simulation runs too slow. There are huge opportunities for parallelism in the data making this a great case for a GPGPU. 
 
 This shows that the GPGPU is making its way into even the business market. The efficient calculation of the financial simulations can provide a great service to this market. \cite{finance}
 

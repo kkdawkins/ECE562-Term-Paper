@@ -5,9 +5,9 @@ Graphics Processing Units (GPUs) gained popularity during the mid-1990s. As comp
 
 This style of computation became known as \textbf{S}ingle \textbf{I}nstruction \textbf{M}ultiple \textbf{D}ata (SIMD). The key observation being that each individual operation could be done on each data set in parallel. However, the programability of these operations was limited, initially not extending past transformation and lighting (hardware T$\&L$). 
 
-The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. \ref{tab:gpuevolution}
-
-As shown in Table 1, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. A great example of this feature begin picked up is the work done at PhysX. While initially an additional expansion card for computing physics, PhysX integrated with GPGPUs capable of DirectX 10. They improved the realism of games by providing a realtime physics environment. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). \cite{emergingtech}
+The evolution of the programmable GPU can be traced with the evolution of Direct3D (commonly known as Microsoft's DirectX). With each evolution in the API, more flexibility was added to the GPU itself. 
+ 
+As shown in Table \ref{tab:gpuevolution}, the amount of control a programmer had over the GPU grew with each new iteration of DirectX. In fact, by DirectX 10 with the advent of the unified shader, it was theoretically possible to use the GPU as a floating-point coprocessor. A great example of this feature begin picked up is the work done at PhysX. While initially an additional expansion card for computing physics, PhysX integrated with GPGPUs capable of DirectX 10. They improved the realism of games by providing a realtime physics environment. It was at this point, researches started to notice that other computational problems outside of drawing the screen would greatly benefit from the GPUs style of computation. This revelation would change GPU design, even changing its name to the \textbf{G}eneral \textbf{P}urpose graphics processing unit (GPGPU). \cite{emergingtech}
 
 \begin{table}
 	\begin{tabular}{|c|c|}
@@ -37,6 +37,17 @@ Another advantage that the GPU had was its massive number of cores and possible 
 The unified shader represented a more general approach to the CPU, freeing programmers from writing their GPGPU programs using the terms of a graphics program. This created an opportunity for GPGPU hardware and programming models to be defined centered around general purpose programming. NVIDIA's Compute Unified Device Architecture (CUDA) was one of the first, allowing programmers to write in a C-like language. 
 
 The ability to write programs in a C-like general language rather than a specialized shader language (that required the programmer to write everything in terms of graphics nomenclature), combined with the increasingly general aspects of the GPU meant that the industry could start porting applications and attempting to figure out what works well on a GPGPU. 
+
+\section*{Anatomy of the GPGPU}
+\addcontentsline{toc}{section}{Anatomy of the GPGPU}
+
+From the top, the GPGPU is made up of several graphics processor clusters (the names vary by manufacturer, but the concept remains the same, this paper standardizes on the Nvidia terminology). The graphics processor clusters contain several streaming multiprocessors which are further divided down into individual cores. The threads are controlled by a threading engine which dispatches threads down through the streaming multiprocessors. \cite{gpuarch}
+
+The GPGPU's cache hierarchy contains a level 1 cache per core with a large level 2 cache shared amongst the graphics processing clusters. The level 1 cache is "used for register spilling, for stack operations, or to improve efficiency of global load and store operations." \cite{gpuarch} The interesting point about the level 2 cache is that in the case of the Nvidia Fermi (GF100) architecture, it contains 2 separate level 2 caches. The first is the standard read/write cache with a write-back replacement policy. The second is a read only for storing texture information for the graphics processor. \cite{gpuarch} 
+
+Typically the GPGPU will contain several memory controllers. In the case of the GF100, it contains six. These are used to support the massive amount of threads and different hardware engines the GPGPU supports. These engines are specialized hardware to support complicated operations (PolyMorph and tessellation, for example). 
+
+The entire anatomy of the GPGPU is built around supporting the massive amount of parallelism that it supplies to the computing system
 
 \section*{Unleashing the power of the GPGPU}
 \addcontentsline{toc}{section}{Unleashing the power of the GPGPU}

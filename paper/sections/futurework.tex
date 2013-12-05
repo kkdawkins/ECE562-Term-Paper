@@ -1,0 +1,14 @@
+This paper explored the changes necessary from the instruction set level for the heterogenous architecture to come into reality. However, much work remains before this can truly come into light. Innovation in Memory Access and Control Flow still need to happen. 
+
+\section*{Memory Access}
+\addcontentsline{toc}{section}{Memory Access}
+
+Both of the cache issues outlined earlier in the paper can be solved with more intelligent cache management. If the cache was able to discern data meant for the GPGPU from data that was meant for the CPU, it could better manage the cache as a whole. This may lead to architectures that maintain multiple cache management policies based on what kind of data is currently in the cache. Knowing how the GPGPU access data and how frequently it will hit the cache when compared with the CPU will lead to smarter cache management. 
+
+Another way to solve the cache issues would be to separate the cache into a GPGPU cache and a CPU cache. This could work much like the data and instruction caches work currently for the CPU. This would also simplify the hardware required for two different cache management policies and maintaining the information about what type of core (CPU or GPGPU) each entry in the cache came from.
+
+
+\section*{A More Efficient GPGPU Instruction Set}
+\addcontentsline{toc}{section}{A More Efficient GPGPU Instruction Set}
+
+While the instruction set outlined in this paper does what is needed, much more work can be done to help with efficiency. Currently, if a program mixes GPGPU and CPU code, it requires all GPGPU instructions to pass through the CPU even if no CPU instructions are currently being executed. Ideally, this situation would work much like \textit{pthread} works in Linux. The code generated from the compiler should be able to execute independently from the rest when working with the CPU. 

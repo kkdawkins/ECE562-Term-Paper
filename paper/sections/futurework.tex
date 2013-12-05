@@ -12,3 +12,11 @@ Another way to solve the cache issues would be to separate the cache into a GPGP
 \addcontentsline{toc}{section}{A More Efficient GPGPU Instruction Set}
 
 While the instruction set outlined in this paper does what is needed, much more work can be done to help with efficiency. Currently, if a program mixes GPGPU and CPU code, it requires all GPGPU instructions to pass through the CPU even if no CPU instructions are currently being executed. Ideally, this situation would work much like \textit{pthread} works in Linux. The code generated from the compiler should be able to execute independently from the rest when working with the CPU. 
+
+
+
+\section*{Power Model for a Heterogeneous System}
+\addcontentsline{toc}{section}{Power Model for a Heterogeneous System}
+
+
+At first glance, incorporating a GPGPU into a modern system will save power by eliminating a high power external card. However, along with the incorporation of the GPGPU, additional memory may need to be added to the system to support it. This will require additional cooling and power. There needs to be an accurate model to help predict power savings and cost of each component on an existing GPGPU in relation to the entire system. 

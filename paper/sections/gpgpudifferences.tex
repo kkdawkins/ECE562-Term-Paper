@@ -11,7 +11,7 @@ For example, on a typical 1080p screen with a standard $1920 X 1080$ resolution:
 \end{gather}
 \end{center}
 
-That means, for a 1080p screen, the GPGPU must perform at least 8,294,400 calculations for each pixel at 60 fps (assuming the standard 60hz refresh rate)! That requires a ton of computation power! 
+That means, for a 1080p screen, the GPGPU must perform at least 8,294,400 calculations for each screen refresh at 60 fps (assuming the standard 60hz refresh rate)! That requires a ton of computation power! 
 
 Luckily, as stated above, it must work in slower time-slices than the CPU (60 refreshes per second). This allows for a much deeper (in the hundreds to thousands deep) pipeline. The latency of each individual instruction does not mater as much as the aggregate throughput to the screen. Therefore, to understand the design choices around the GPGPU's architecture, one must understand it was designed around the theory that "throughput is more important than latency." \cite{gpucomputing}
 
@@ -27,7 +27,7 @@ GPGPU architecture varies from a general purpose CPU architecture in two main wa
 \subsection*{Control Flow}
 \addcontentsline{toc}{subsection}{Control Flow}
 
-Recall that in a SIMD (Single Instruction Multiple Data) architecture, all concurrently executing threads (also known as workgroups) must move through the GPGPU in lock-step. Therefore, the ideal situation for these wavefronts (groups of threads representing divided work) would be to move through the code with no conditional branches allowing unabated forward progress through the program and correctly executing instructions for each work item (data set) in parallel. 
+Recall that in a SIMD (Single Instruction Multiple Data) architecture, all concurrently executing threads (also known as wavefronts) must move through the GPGPU in lock-step. Therefore, the ideal situation for these wavefronts (groups of threads representing divided work) would be to move through the code with no conditional branches allowing unabated forward progress through the program and correctly executing instructions for each work item (data set) in parallel. 
 
 However, this is almost never the case. Modern mature programs almost always include control flow branches in the code. With that being said, it is entirely possible for threads in the wavefront to encounter data items that cause the code to make the jump, while the rest of the threads do not. Predictably, this causes problems when threads are expected to execute in lock step. This is known as "branch divergence" and is currently solved with the addition of a hardware component that monitors the running threads. This SIMT stack monitor watches threads executing and disables threads making an uncharacteristic jump. It tracks the current program counter and the RPC (re-convergence program counter), which is the closest point in the code at which the inactive and active threads will rejoin. 
 
